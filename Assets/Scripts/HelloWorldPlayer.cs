@@ -30,13 +30,13 @@ namespace HelloWorld
                 Move();
                 CambiarMaterial();
 
-               // PlayerColorNumber.OnValueChanged += OnPlayerColorNumberChanged;
+                PlayerColorNumber.OnValueChanged += OnPlayerColorNumberChanged;
             }
         }
 
         public override void OnNetworkDespawn()
         {
-           // PlayerColorNumber.OnValueChanged -= OnPlayerColorNumberChanged;
+            PlayerColorNumber.OnValueChanged -= OnPlayerColorNumberChanged;
         }
 
         public void CambiarMaterial()
@@ -72,13 +72,13 @@ namespace HelloWorld
                 SubmitPositionRequestServerRpc();
             }
         }
-        /*
+        
         public void OnPlayerColorNumberChanged(int previous, int current)
         {
             Debug.Log("Se detecto un cambio en la networkvariable");
             rend.material = playerMaterial[PlayerColorNumber.Value];
         }
-        */
+
         [ServerRpc]
         void SubmitPositionRequestServerRpc(ServerRpcParams rpcParams = default)
         {
