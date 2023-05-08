@@ -29,14 +29,7 @@ namespace HelloWorld
                 rend = GetComponent<Renderer>();
                 Move();
                 CambiarMaterial();
-
-               // PlayerColorNumber.OnValueChanged += OnPlayerColorNumberChanged;
             }
-        }
-
-        public override void OnNetworkDespawn()
-        {
-           // PlayerColorNumber.OnValueChanged -= OnPlayerColorNumberChanged;
         }
 
         public void CambiarMaterial()
@@ -72,13 +65,7 @@ namespace HelloWorld
                 SubmitPositionRequestServerRpc();
             }
         }
-        /*
-        public void OnPlayerColorNumberChanged(int previous, int current)
-        {
-            Debug.Log("Se detecto un cambio en la networkvariable");
-            rend.material = playerMaterial[PlayerColorNumber.Value];
-        }
-        */
+
         [ServerRpc]
         void SubmitPositionRequestServerRpc(ServerRpcParams rpcParams = default)
         {
@@ -93,16 +80,7 @@ namespace HelloWorld
             // se guarda el numero valido
             PlayerColorNumber.Value = number;
         }
-        /*
-        [ServerRpc(RequireOwnership = false)]
-        public void ToggleServerRpc(int n)
-        {
-            // this will cause a replication over the network
-            // and ultimately invoke `OnValueChanged` on receivers
-            Debug.Log("Se llevara a cabo la replicacion de red");
-            PlayerColorNumber.Value =   n;
-        }
-        */
+
         static Vector3 GetRandomPositionOnPlane()
         {
             return new Vector3(Random.Range(-3f, 3f), 1f, Random.Range(-3f, 3f));
@@ -133,7 +111,6 @@ namespace HelloWorld
             // se devuelve el numero valido
             return number;
         }
-
 
         void Update()
         {
