@@ -138,14 +138,14 @@ namespace HelloWorld
         void Update()
         {
             transform.position = Position.Value;
-            
+            /*
             // comprobacion para que no asigne el color en cada frame, sino solo cuando el valor es diferente
             if (rend.material != playerMaterial[PlayerColorNumber.Value])
             {
                 // se asigna el nuevo material
                 rend.material = playerMaterial[PlayerColorNumber.Value];
             }
-            
+            */
         }
     }
 }
