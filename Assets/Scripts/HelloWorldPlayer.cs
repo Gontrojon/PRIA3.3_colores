@@ -24,13 +24,19 @@ namespace HelloWorld
 
         public override void OnNetworkSpawn()
         {
+            // se subscribe a los cambios realizados en la networkvariable
+            PlayerColorNumber.OnValueChanged += OnPlayerColorNumberChanged;
+            rend = GetComponent<Renderer>();
+            // si se es propietario se asegura de generar un color valido y ponerselo
             if (IsOwner)
             {
-                rend = GetComponent<Renderer>();
                 Move();
                 CambiarMaterial();
-
-                PlayerColorNumber.OnValueChanged += OnPlayerColorNumberChanged;
+            }
+            // si no se es propietario se asegura de que el resto de jugadores tengan sus colores sincronizados
+            if (!IsOwner)
+            {
+                rend.material = playerMaterial[PlayerColorNumber.Value];
             }
         }
 
@@ -93,7 +99,7 @@ namespace HelloWorld
             // se guarda el numero valido
             PlayerColorNumber.Value = number;
         }
-        /*
+        
         [ServerRpc(RequireOwnership = false)]
         public void ToggleServerRpc(int n)
         {
@@ -102,7 +108,7 @@ namespace HelloWorld
             Debug.Log("Se llevara a cabo la replicacion de red");
             PlayerColorNumber.Value =   n;
         }
-        */
+
         static Vector3 GetRandomPositionOnPlane()
         {
             return new Vector3(Random.Range(-3f, 3f), 1f, Random.Range(-3f, 3f));
