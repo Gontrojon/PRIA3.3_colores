@@ -100,15 +100,6 @@ namespace HelloWorld
             PlayerColorNumber.Value = number;
         }
         
-        [ServerRpc(RequireOwnership = false)]
-        public void ToggleServerRpc(int n)
-        {
-            // this will cause a replication over the network
-            // and ultimately invoke `OnValueChanged` on receivers
-            Debug.Log("Se llevara a cabo la replicacion de red");
-            PlayerColorNumber.Value =   n;
-        }
-
         static Vector3 GetRandomPositionOnPlane()
         {
             return new Vector3(Random.Range(-3f, 3f), 1f, Random.Range(-3f, 3f));
@@ -125,7 +116,7 @@ namespace HelloWorld
             // se recorre los clientes conectados para guardar los numeros que estan usando
             foreach (ulong uid in NetworkManager.Singleton.ConnectedClientsIds)
             {
-                // se añade a la lista
+                // se aÃ±ade a la lista
                 numerosUsados.Add(NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<HelloWorldPlayer>().PlayerColorNumber.Value);
             }
             // do while para que solo se pueda obtener numeros validos
