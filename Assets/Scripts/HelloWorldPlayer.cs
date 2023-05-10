@@ -11,10 +11,17 @@ namespace HelloWorld
         // variable network para almacenar el int correspondiente a la posicion de la lista del color
         public NetworkVariable<int> PlayerColorNumber;
 
+        // utilizacion de una networklist
+        public NetworkList<int> PlayerColorNumberList;
         // lista con los materiales de los colores que puede ser el player
         public List<Material> playerMaterial;
         // renderrer para poder cambiar el color al player
         private Renderer rend;
+
+        private void Awake()
+        {
+            PlayerColorNumberList = new NetworkList<int>();
+        }
 
         private void Start()
         {
@@ -24,9 +31,15 @@ namespace HelloWorld
 
         public override void OnNetworkSpawn()
         {
+            if (PlayerColorNumberList.Count >= 9)
+            {
+                Application.Quit();
+            }
             // se subscribe a los cambios realizados en la networkvariable
-            PlayerColorNumber.OnValueChanged += OnPlayerColorNumberChanged;
+            //PlayerColorNumber.OnValueChanged += OnPlayerColorNumberChanged;
+            PlayerColorNumberList.OnListChanged += OnPlayerColorNumberChangedList;
             rend = GetComponent<Renderer>();
+            
             // si se es propietario se asegura de generar un color valido y ponerselo
             if (IsOwner)
             {
@@ -38,6 +51,12 @@ namespace HelloWorld
             {
                 rend.material = playerMaterial[PlayerColorNumber.Value];
             }
+        }
+
+        private void OnPlayerColorNumberChangedList(NetworkListEvent<int> changeEvent)
+        {
+            Debug.Log("La lista contiene un total de " + PlayerColorNumberList.Count);
+            Debug.Log("En la posicion 0 de la lista hay " + PlayerColorNumberList[0]);
         }
 
         public override void OnNetworkDespawn()
@@ -52,6 +71,7 @@ namespace HelloWorld
             {
                 // se pide si el color es valido
                 number = NumeroValido();
+                NumeroValidoList();
                 // se asigna el color
                 rend.material = playerMaterial[number];
                 // se guarda el numero a la posicion del color de la lista
@@ -99,19 +119,29 @@ namespace HelloWorld
             // se guarda el numero valido
             PlayerColorNumber.Value = number;
         }
-        
-        [ServerRpc(RequireOwnership = false)]
-        public void ToggleServerRpc(int n)
-        {
-            // this will cause a replication over the network
-            // and ultimately invoke `OnValueChanged` on receivers
-            Debug.Log("Se llevara a cabo la replicacion de red");
-            PlayerColorNumber.Value =   n;
-        }
 
         static Vector3 GetRandomPositionOnPlane()
         {
             return new Vector3(Random.Range(-3f, 3f), 1f, Random.Range(-3f, 3f));
+        }
+
+        void NumeroValidoList()
+        {
+            if(PlayerColorNumberList.Count >= 9)
+            {
+                return;
+            }
+
+            int n = Random.Range(0, playerMaterial.Count);
+            if (PlayerColorNumberList.Contains(n))
+            {
+                NumeroValidoList();
+            }
+            else
+            {
+                Debug.Log("El id es el siguiente" + (int)NetworkManager.Singleton.LocalClientId);
+                PlayerColorNumberList.Insert((int)NetworkManager.Singleton.LocalClientId, n);
+            }
         }
 
         int NumeroValido()
@@ -152,6 +182,7 @@ namespace HelloWorld
                 rend.material = playerMaterial[PlayerColorNumber.Value];
             }
             */
+            
         }
     }
 }
