@@ -115,18 +115,18 @@ MonoBehaviour:
   Position:
     m_InternalValue: {x: 0, y: 0, z: 0}
   PlayerColorNumber:
-    m_InternalValue: 0
-  playerMaterial:
-  - {fileID: 2100000, guid: 341299a8c7d8aa446b0c9964faf58d80, type: 2}
-  - {fileID: 2100000, guid: bad87e7e2643c9b4db4237f197dc1813, type: 2}
-  - {fileID: 2100000, guid: d6ea78bec4e9a8c478024a927c79d807, type: 2}
-  - {fileID: 2100000, guid: 4bc9ed723850ed64a82e3e9f75ceaee5, type: 2}
-  - {fileID: 2100000, guid: 5a80eb0d39ccfc54ea68ac528f521045, type: 2}
-  - {fileID: 2100000, guid: c8c8361342bf4bf43aed95b2e0fcedaf, type: 2}
-  - {fileID: 2100000, guid: b5e57bc92329761478c0de5aa3bbc1a2, type: 2}
-  - {fileID: 2100000, guid: 9aa012960f7c3a74fa80e50fecc071bb, type: 2}
-  - {fileID: 2100000, guid: 70d3506198cbc1d44ad1afcfd259f361, type: 2}
-  - {fileID: 2100000, guid: c3ba5df901fb38944845f2ab1d8f581f, type: 2}
+    m_InternalValue: {r: 0, g: 0, b: 0, a: 0}
+  playerColors:
+  - {r: 0.46666667, g: 0.46666667, b: 0.46666667, a: 0}
+  - {r: 0, g: 0, b: 1, a: 0}
+  - {r: 0.5882353, g: 0.29411766, b: 0, a: 0}
+  - {r: 0, g: 1, b: 1, a: 0}
+  - {r: 0, g: 1, b: 0, a: 0}
+  - {r: 1, g: 0.5254902, b: 0, a: 0}
+  - {r: 0.627451, g: 0.1254902, b: 0.9411765, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 1, g: 1, b: 0, a: 0}
 --- !u!114 &8864032723568726116
 MonoBehaviour:
   m_ObjectHideFlags: 0
